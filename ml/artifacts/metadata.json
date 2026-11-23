@@ -1,0 +1,167 @@
+{
+  "model_version": "v1.0.0-emscad-nlp",
+  "created_at": "2026-11-23T14:19:32.460735+00:00",
+  "algorithm": "Alternative_CalibratedLinearSVC",
+  "dataset_name": "EMSCAD (University of the Aegean)",
+  "train_samples": 12696,
+  "train_fraud_samples": 570,
+  "train_legit_samples": 12126,
+  "vocab_size": 12000,
+  "hyperparameters": {
+    "cv": 5,
+    "ensemble": "auto",
+    "estimator__C": 1.0,
+    "estimator__class_weight": "balanced",
+    "estimator__dual": "auto",
+    "estimator__fit_intercept": true,
+    "estimator__intercept_scaling": 1,
+    "estimator__loss": "squared_hinge",
+    "estimator__max_iter": 2000,
+    "estimator__multi_class": "ovr",
+    "estimator__penalty": "l2",
+    "estimator__random_state": 42,
+    "estimator__tol": 0.0001,
+    "estimator__verbose": 0,
+    "estimator": "LinearSVC(class_weight='balanced', max_iter=2000, random_state=42)",
+    "method": "sigmoid",
+    "n_jobs": null
+  },
+  "cv_metrics": {
+    "Baseline_LogisticRegression": {
+      "cv_recall_mean": 0.8122807017543859,
+      "cv_precision_mean": 0.686193731087305,
+      "cv_f1_mean": 0.7433083299109118,
+      "cv_roc_auc_mean": 0.9760540828192561
+    },
+    "Alternative_CalibratedLinearSVC": {
+      "cv_recall_mean": 0.7263157894736842,
+      "cv_precision_mean": 0.8925005592203126,
+      "cv_f1_mean": 0.8006961948587131,
+      "cv_roc_auc_mean": 0.9758288869435638
+    }
+  },
+  "top_scam_indicators": [
+    {
+      "feature": "link",
+      "weight": 6.306877086561663
+    },
+    {
+      "feature": "earn",
+      "weight": 4.245542070486227
+    },
+    {
+      "feature": "data entry",
+      "weight": 4.168461225305757
+    },
+    {
+      "feature": "accion",
+      "weight": 4.016297970514913
+    },
+    {
+      "feature": "assistant",
+      "weight": 3.910135121185391
+    },
+    {
+      "feature": "aptitude staffing",
+      "weight": 3.853931639260209
+    },
+    {
+      "feature": "timejob",
+      "weight": 3.7349389147374303
+    },
+    {
+      "feature": "offshore",
+      "weight": 3.6219211116473957
+    },
+    {
+      "feature": "high school",
+      "weight": 3.576075499132904
+    },
+    {
+      "feature": "aptitude",
+      "weight": 3.4348178765027537
+    },
+    {
+      "feature": "receptionist",
+      "weight": 3.2342812955381697
+    },
+    {
+      "feature": "rn",
+      "weight": 3.2188788874531284
+    },
+    {
+      "feature": "hospital",
+      "weight": 3.151333210818018
+    },
+    {
+      "feature": "000",
+      "weight": 3.1051307889321285
+    },
+    {
+      "feature": "leveraging career",
+      "weight": 3.083209257434029
+    }
+  ],
+  "top_legitimate_indicators": [
+    {
+      "feature": "recruitment",
+      "weight": -3.5480714074647097
+    },
+    {
+      "feature": "english",
+      "weight": -3.5022488063257784
+    },
+    {
+      "feature": "companies",
+      "weight": -3.378463576321039
+    },
+    {
+      "feature": "growing",
+      "weight": -3.320176276566511
+    },
+    {
+      "feature": "web",
+      "weight": -3.3057709081657736
+    },
+    {
+      "feature": "digital",
+      "weight": -3.066602890002496
+    },
+    {
+      "feature": "software",
+      "weight": -2.9424708403634097
+    },
+    {
+      "feature": "client",
+      "weight": -2.8380575890711803
+    },
+    {
+      "feature": "right",
+      "weight": -2.6673865002266015
+    },
+    {
+      "feature": "team",
+      "weight": -2.6227663748276306
+    },
+    {
+      "feature": "fun",
+      "weight": -2.509052786724208
+    },
+    {
+      "feature": "fast",
+      "weight": -2.4608345698854746
+    },
+    {
+      "feature": "creative",
+      "weight": -2.427350647729275
+    },
+    {
+      "feature": "clients",
+      "weight": -2.4235786512350095
+    },
+    {
+      "feature": "know",
+      "weight": -2.3362323298955943
+    }
+  ]
+}
