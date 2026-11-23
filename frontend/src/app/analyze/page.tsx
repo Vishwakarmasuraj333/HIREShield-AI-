@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../../context/AuthContext";
 import { api } from "../../lib/api";
+import { AnimatedSecurityBackground } from "../../components/backgrounds/AnimatedSecurityBackground";
+import { PageHeader } from "../../components/PageHeader";
 import {
   Search,
   Sparkles,
@@ -15,7 +17,12 @@ import {
   Globe,
   FileText,
   ShieldAlert,
-  ArrowRight
+  ArrowRight,
+  ShieldCheck,
+  CheckCircle2,
+  RotateCcw,
+  Cpu,
+  Layers
 } from "lucide-react";
 
 export default function AnalyzePage() {
@@ -48,6 +55,7 @@ export default function AnalyzePage() {
       "mandatory $150 refundable onboarding laptop security deposit via gift card or crypto " +
       "before work tools are dispatched. Contact our recruiter directly on Telegram @ApexHiring."
     );
+    setError(null);
   };
 
   const handleLoadSampleLegit = () => {
@@ -64,6 +72,18 @@ export default function AnalyzePage() {
       "in Computer Science or related technical discipline, foundational understanding of data structures, " +
       "and familiarity with Git and Docker. Comprehensive health coverage, 401(k) matching, and parental leave."
     );
+    setError(null);
+  };
+
+  const handleClearForm = () => {
+    setJobTitle("");
+    setCompanyName("");
+    setCompanyUrl("");
+    setRecruiterEmail("");
+    setSalaryText("");
+    setExperienceLevel("");
+    setJobDescription("");
+    setError(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -76,7 +96,7 @@ export default function AnalyzePage() {
     }
 
     if (jobDescription.trim().length < 20) {
-      setError("Please provide a more substantial job description (at least 20 characters).");
+      setError("Please provide a more substantial job description (at least 20 characters) for accurate lexical inference.");
       return;
     }
 
@@ -101,166 +121,222 @@ export default function AnalyzePage() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6 pb-12">
-      {/* Title & Quick Fill Bar */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-zinc-900 tracking-tight">
-            Job & Internship Risk Workspace
-          </h1>
-          <p className="text-xs text-zinc-500 mt-1">
-            Input job details to run ML lexical classification and deterministic cyber-risk heuristics.
-          </p>
+    <div className="relative min-h-[calc(100vh-140px)] py-8 px-4 sm:px-6 max-w-4xl mx-auto space-y-6">
+      <AnimatedSecurityBackground variant="minimal" />
+
+      {/* Header */}
+      <PageHeader
+        badge="Threat Analysis Engine"
+        title="Job & Internship Risk Workspace"
+        description="Submit opportunity details to trigger real-time lexical inference and deterministic cyber-risk heuristics."
+      />
+
+      {/* Presentation Quick-Fill Bar */}
+      <div className="bg-white/95 backdrop-blur-sm p-3.5 sm:p-4 rounded-2xl border border-zinc-200/80 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <Sparkles className="w-4 h-4 text-amber-500 shrink-0" />
+          <span className="text-xs font-bold text-zinc-700">Viva Demonstration Presets:</span>
         </div>
 
-        {/* Presentation Sample Fillers */}
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
           <button
             type="button"
             onClick={handleLoadSampleScam}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-rose-200 bg-rose-50 hover:bg-rose-100 text-rose-800 text-xs font-semibold transition-colors"
+            className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl border border-rose-200/90 bg-rose-50/70 hover:bg-rose-100/80 text-rose-800 text-xs font-semibold transition-all shadow-sm active:scale-95"
           >
-            <Sparkles className="w-3.5 h-3.5 text-rose-600" />
+            <ShieldAlert className="w-3.5 h-3.5 text-rose-600" />
             <span>Load Scam Sample</span>
           </button>
+
           <button
             type="button"
             onClick={handleLoadSampleLegit}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-emerald-200 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-semibold transition-colors"
+            className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl border border-emerald-200/90 bg-emerald-50/70 hover:bg-emerald-100/80 text-emerald-800 text-xs font-semibold transition-all shadow-sm active:scale-95"
           >
-            <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
             <span>Load Safe Sample</span>
           </button>
+
+          {(jobTitle || jobDescription) && (
+            <button
+              type="button"
+              onClick={handleClearForm}
+              className="p-1.5 rounded-lg border border-zinc-200 text-zinc-500 hover:text-zinc-700 hover:bg-zinc-100 transition-colors"
+              title="Reset form fields"
+            >
+              <RotateCcw className="w-3.5 h-3.5" />
+            </button>
+          )}
         </div>
       </div>
 
+      {/* Error Alert */}
       {error && (
-        <div className="p-4 rounded-xl bg-rose-50 border border-rose-200 flex items-start gap-3 text-xs text-rose-800">
+        <div
+          role="alert"
+          className="p-4 rounded-xl bg-rose-50/90 border border-rose-200 flex items-start gap-3 text-xs text-rose-800 animate-fadeIn"
+        >
           <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
-          <span>{error}</span>
+          <div className="flex-1">
+            <span className="font-semibold">Analysis halted: </span>
+            <span>{error}</span>
+          </div>
         </div>
       )}
 
       {/* Main Analysis Form */}
-      <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-zinc-200 shadow-sm p-6 sm:p-8 space-y-6">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white/95 backdrop-blur-sm rounded-2xl border border-zinc-200/80 shadow-card p-6 sm:p-8 space-y-6"
+      >
+        {/* Section 1: Position & Organization */}
         <div className="space-y-4">
-          <h2 className="text-sm font-bold text-zinc-900 border-b border-zinc-100 pb-2 flex items-center gap-2">
-            <Briefcase className="w-4 h-4 text-zinc-500" />
-            <span>Position & Opportunity Details</span>
-          </h2>
+          <div className="border-b border-zinc-100 pb-2.5 flex items-center justify-between">
+            <h2 className="text-sm font-bold text-zinc-900 flex items-center gap-2">
+              <Briefcase className="w-4 h-4 text-emerald-600" />
+              <span>Position & Recruiter Identity</span>
+            </h2>
+            <span className="text-[11px] text-zinc-400">Step 1 of 2</span>
+          </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5 sm:col-span-2">
-              <label className="text-xs font-semibold text-zinc-700">
+              <label htmlFor="job-title" className="block text-xs font-semibold text-zinc-700">
                 Job / Internship Title <span className="text-rose-500">*</span>
               </label>
               <input
+                id="job-title"
                 type="text"
                 required
                 value={jobTitle}
                 onChange={(e) => setJobTitle(e.target.value)}
-                placeholder="e.g. Remote Python Intern or Frontend Developer"
-                className="w-full px-3.5 py-2 text-sm rounded-lg border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 transition-colors"
+                placeholder="e.g. Remote Python Developer Intern or Research Assistant"
+                className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-zinc-200 bg-zinc-50/50 text-zinc-900 placeholder:text-zinc-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 transition-all"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-zinc-700">Company Name</label>
+              <label htmlFor="company-name" className="block text-xs font-semibold text-zinc-700">
+                Company Name
+              </label>
               <div className="relative">
-                <Building2 className="w-4 h-4 text-zinc-400 absolute left-3 top-2.5" />
+                <Building2 className="w-4 h-4 text-zinc-400 absolute left-3.5 top-3 pointer-events-none" />
                 <input
+                  id="company-name"
                   type="text"
                   value={companyName}
                   onChange={(e) => setCompanyName(e.target.value)}
-                  placeholder="e.g. Acme Corporation"
-                  className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 transition-colors"
+                  placeholder="e.g. Apex Global Solutions"
+                  className="w-full pl-10 pr-3.5 py-2.5 text-sm rounded-xl border border-zinc-200 bg-zinc-50/50 text-zinc-900 placeholder:text-zinc-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 transition-all"
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-zinc-700">Company Website / Portal URL</label>
+              <label htmlFor="company-url" className="block text-xs font-semibold text-zinc-700">
+                Company Website / Portal URL
+              </label>
               <div className="relative">
-                <Globe className="w-4 h-4 text-zinc-400 absolute left-3 top-2.5" />
+                <Globe className="w-4 h-4 text-zinc-400 absolute left-3.5 top-3 pointer-events-none" />
                 <input
+                  id="company-url"
                   type="url"
                   value={companyUrl}
                   onChange={(e) => setCompanyUrl(e.target.value)}
                   placeholder="https://company.com"
-                  className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 transition-colors"
+                  className="w-full pl-10 pr-3.5 py-2.5 text-sm rounded-xl border border-zinc-200 bg-zinc-50/50 text-zinc-900 placeholder:text-zinc-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 transition-all"
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-zinc-700">Recruiter Contact Email</label>
+              <label htmlFor="recruiter-email" className="block text-xs font-semibold text-zinc-700">
+                Recruiter Contact Email
+              </label>
               <div className="relative">
-                <Mail className="w-4 h-4 text-zinc-400 absolute left-3 top-2.5" />
+                <Mail className="w-4 h-4 text-zinc-400 absolute left-3.5 top-3 pointer-events-none" />
                 <input
+                  id="recruiter-email"
                   type="email"
                   value={recruiterEmail}
                   onChange={(e) => setRecruiterEmail(e.target.value)}
-                  placeholder="recruiter@company.com or @gmail.com"
-                  className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 transition-colors"
+                  placeholder="recruiter@domain.com or @gmail.com"
+                  className="w-full pl-10 pr-3.5 py-2.5 text-sm rounded-xl border border-zinc-200 bg-zinc-50/50 text-zinc-900 placeholder:text-zinc-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 transition-all"
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-zinc-700">Offered Salary / Stipend</label>
+              <label htmlFor="salary-text" className="block text-xs font-semibold text-zinc-700">
+                Offered Compensation / Stipend
+              </label>
               <div className="relative">
-                <DollarSign className="w-4 h-4 text-zinc-400 absolute left-3 top-2.5" />
+                <DollarSign className="w-4 h-4 text-zinc-400 absolute left-3.5 top-3 pointer-events-none" />
                 <input
+                  id="salary-text"
                   type="text"
                   value={salaryText}
                   onChange={(e) => setSalaryText(e.target.value)}
-                  placeholder="e.g. $25/hr or $60,000/yr"
-                  className="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 transition-colors"
+                  placeholder="e.g. $35/hr or $65,000/year"
+                  className="w-full pl-10 pr-3.5 py-2.5 text-sm rounded-xl border border-zinc-200 bg-zinc-50/50 text-zinc-900 placeholder:text-zinc-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 transition-all"
                 />
               </div>
             </div>
           </div>
         </div>
 
-        {/* Job Description Text Area */}
-        <div className="space-y-1.5 pt-2">
-          <div className="flex items-center justify-between">
-            <label className="text-xs font-semibold text-zinc-700">
-              Full Job Description / Outreach Message <span className="text-rose-500">*</span>
-            </label>
-            <span className="text-[11px] text-zinc-400">
-              {jobDescription.length} characters
+        {/* Section 2: Full Job Description */}
+        <div className="space-y-2 pt-2">
+          <div className="border-b border-zinc-100 pb-2.5 flex items-center justify-between">
+            <h2 className="text-sm font-bold text-zinc-900 flex items-center gap-2">
+              <FileText className="w-4 h-4 text-emerald-600" />
+              <span>Full Opportunity Description & Outreach Text</span>
+            </h2>
+            <span
+              className={`text-[11px] font-mono ${
+                jobDescription.length >= 20 ? "text-emerald-700 font-semibold" : "text-zinc-400"
+              }`}
+            >
+              {jobDescription.length} characters (min 20)
             </span>
           </div>
+
+          <p className="text-[11px] text-zinc-500">
+            Paste the complete posting text, job responsibilities, interview communication, or Telegram/WhatsApp outreach message.
+          </p>
+
           <textarea
             required
             rows={8}
             value={jobDescription}
             onChange={(e) => setJobDescription(e.target.value)}
-            placeholder="Paste the full job advertisement, requirements, email outreach text, or internship details here..."
-            className="w-full p-3.5 text-sm rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 transition-colors leading-relaxed"
+            placeholder="Paste job posting details here... Our model extracts TF-IDF n-grams (1-2) and cross-checks payment phrases, deceptive domains, and urgent hiring patterns."
+            className="w-full p-4 text-sm rounded-xl border border-zinc-200 bg-zinc-50/50 text-zinc-900 placeholder:text-zinc-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 transition-all leading-relaxed font-sans"
           />
         </div>
 
-        {/* Submit Button */}
-        <div className="pt-4 border-t border-zinc-100 flex items-center justify-between">
-          <span className="text-xs text-zinc-500 hidden sm:block">
-            Screened via Calibrated TF-IDF Classifier & Red-Flag Rules
-          </span>
+        {/* Submit Bar */}
+        <div className="pt-4 border-t border-zinc-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-2 text-xs text-zinc-500">
+            <Cpu className="w-4 h-4 text-emerald-600 shrink-0" />
+            <span>Calibrated Linear SVC (EMSCAD trained) + 7 Rule Engines</span>
+          </div>
+
           <button
             type="submit"
             disabled={loading}
-            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white font-medium text-sm transition-colors shadow-sm disabled:opacity-50 ml-auto"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 active:scale-[0.99] text-white font-medium text-sm transition-all shadow-sm disabled:opacity-50"
           >
             {loading ? (
               <>
-                <span className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
-                <span>Running Assessment...</span>
+                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <span>Running Risk Engine...</span>
               </>
             ) : (
               <>
                 <ShieldAlert className="w-4 h-4 text-emerald-400" />
                 <span>Execute Risk Assessment</span>
+                <ArrowRight className="w-4 h-4" />
               </>
             )}
           </button>
