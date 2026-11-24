@@ -72,9 +72,8 @@ export const RiskBadge: React.FC<RiskBadgeProps> = ({
     <span
       role="status"
       aria-label={config.ariaLabel}
-      className={`inline-flex items-center font-medium rounded-full border shadow-subtle transition-colors duration-150 select-none ${
-        config.containerClass
-      } ${sizeClasses[size]} ${className}`}
+      className={`inline-flex items-center font-medium rounded-full border shadow-subtle transition-colors duration-150 select-none ${config.containerClass
+        } ${sizeClasses[size]} ${className}`}
     >
       <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${config.dotClass}`} aria-hidden="true" />
       {showIcon && <IconComponent className={`shrink-0 ${iconSizes[size]} ${config.iconClass}`} aria-hidden="true" />}
